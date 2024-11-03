@@ -3,6 +3,12 @@
         <div class="contentWrap admin">
             <section class="content">
                 <div class="ctBox">
+                    <div class="ctBox_top" style="margin-top: 15px;">
+                        게시판 선택 : 
+                        <select @change="selectBoard" v-model="selectedOption">
+                          <option v-for="board in boardList" v-bind:key="board.boardIdx" :value="board.boardIdx">{{ board.boardName }}</option>
+                        </select>
+                    </div>
                     <div class="ctBox_top">
                         <h3 class="ctTit_small">게시글 목록</h3>
                     </div>
@@ -28,7 +34,7 @@
                             <!-- <tr @click="trClick(list)" v-for="list in articleLists" v-bind:key="list.boardArticleIdx"> -->
                             <tr v-for="list in articleLists" v-bind:key="list.boardArticleIdx">
                                 <td>{{ list.boardArticleIdx }}</td>
-                                <td>{{ list.subject }}</td>
+                                <td><a :href="`/board/view/${ list.boardArticleIdx }/${ boardNo }/${ page.page }`">{{ list.subject }}</a></td>
                                 <td>{{ list.hitCount }}</td>
                                 <td>{{ list.dateCreated }}</td>
                                 <td>{{ list.openYn }}</td>
@@ -50,25 +56,6 @@
     </section>
 </template>
 
-/*
-<script lang="ts" setup>
-import { ref, provide } from 'vue';
-
-type Article = {
-  boardArticleIdx : number;
-  subject : string;
-  hitCount : number;
-  dateCreated : string;
-  openYn : string;
-}
-
-const articleList = ref<Article[] | null>([]);
-
-provide('articleList', articleList);
-
-</script>
-*/
-
 <script lang="ts">
 //const $ = window.$;
 //import { mapState, mapActions } from 'vuex'
@@ -77,6 +64,8 @@ import axios from 'axios';
 import { inject } from 'vue';
 import { reactive } from 'vue';
 import api from "../api";
+import { defineComponent } from 'vue'; 
+import { useRoute } from 'vue-router';
 
 //const articleList = inject('articleList');
 
@@ -89,14 +78,33 @@ type Article = {
   openYn : string;
 }
 
+type Board = {
+  boardIdx : number;
+  boardName : string;
+  dateCreated : string;
+}
+
 //const articleList = reactive<Article[]>([]);
 
+/*
+interface Option { 
+  value: string; 
+  text: string; 
+} 
 
-export default {
+const options = ref<Option[]>([]);
+
+// Reactive variable to store the selected value 
+
+const selectedOption = ref<string>(options.value[0].value);
+*/
+
+export default defineComponent({
     name: 'board-list',
     components: {
         paging
     },
+    
     data: () => ({
         page: {
             total: 165,//localStorage.getItem('total'),
@@ -106,6 +114,8 @@ export default {
         boardNo: 10,
         articleLists: [] as Article[],
         isFetching: true,
+        boardList: [] as Board[],
+        selectedOption: "",
     }),
    
     //computed: {
@@ -114,23 +124,58 @@ export default {
         //]),
     //},
     
+    setup() { 
+      const route = useRoute(); 
+      return { route };
+    },
+    
     mounted() {
+        
+        this.board();
+        
+        console.log("route", this.route.params.boardNo);
+        
+        
+        this.selectedOption = this.route.params && this.route.params.boardNo ? this.route.params.boardNo + "" : "5";
+        
+        this.boardNo = Number(this.selectedOption);
+        
+        this.page.page = this.route.params && this.route.params.page ? Number(this.route.params.page) : 1;
         
         if (this.page.page === null) {
             this.page.page = 1
         }
             
-        this.main(this.page.page)
+        this.main(this.page.page);
+        
+        
     },
           
     methods: {
+        
+        board: function() {
+            
+            api.post('boardNameList', {"1":"1"})
+            .then(response => {
+              
+              console.log(response);
+              console.log("data", response.data);
+              
+              this.boardList = response.data;
+              
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        },
+        
         main: function(page: number) {
             
             this.isFetching = true;
             
             const payload = {
                 currentPage : page,
-                pageArticleCount : this.page.count,
+                pageArticleCount : this.page ? this.page.count : 10,
                 boardNo : this.boardNo,
             }
 
@@ -162,6 +207,18 @@ export default {
             //localStorage.setItem('page', page)
         },
         //...mapActions(['adminList'])
+        
+        selectBoard: function(event: Event) {
+          //const selectBoardElem = this.$refs.selectBoardElement as HTMLSelectElement;
+          //const selectBoardValue = (selectBoardElem.option[selectBoardElem.selectedIndex].value);
+          //console.log("selectBoardValue", selectBoardValue);
+          const target = event.target as HTMLSelectElement;
+          const selectBoardValue = target.value;
+          console.log("selectBoardValue", selectBoardValue);
+          this.boardNo = Number(selectBoardValue);
+          this.main(1);
+        }
     },
-}
+});
+
 </script>

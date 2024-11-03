@@ -1,7 +1,13 @@
 <script setup lang="ts">
-defineProps<{
-  msg: string
-}>()
+
+import { ref } from 'vue';
+
+//defineProps<{
+  //msg: string
+//}>()
+
+const msg = ref<string>("Hello");
+
 </script>
 
 <template>

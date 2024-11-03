@@ -7,7 +7,7 @@ import LoginView from '../views/LoginView.vue'
 import BoardView from '../views/BoardView.vue'
 import ListVue from '../components/list.vue'
 import BoardViewVue from '../components/BoardView.vue'
-import ChildComponentA from '../components/ChildComponentA.vue'
+import ChildComponent from '../components/ChildComponent.vue'
 import HelloWorld from '../components/HelloWorld.vue'
 
 const routes: RouteRecordRaw[] = [
@@ -38,12 +38,9 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/board',
+    name: 'board',
+    component: HelloWorld,
     children: [
-      {
-        path: '',
-        name: 'board',
-        component: ListVue,
-      },
       {
         path: 'view/:articleId/:boardNo/:page',
         name: 'boardView',
@@ -52,14 +49,14 @@ const routes: RouteRecordRaw[] = [
       {
         path: ":boardNo/:page",
         name: "board1",
-        component: ListVue,
+        component: ChildComponent,
       },
     ]
   },
   {
-    path: '/test',
-    name: 'test',
-    component: ChildComponentA,
+    path: '/board/view1/:articleId/:boardNo/:page',
+    name: 'boardView1',
+    component: BoardViewVue,
   },
 ]
 

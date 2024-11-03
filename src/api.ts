@@ -4,7 +4,8 @@ import axios from "axios";
 //import { useState } from 'react';
 
 const instance = axios.create({
-  baseURL: "http://localhost:9999/api/v1/auth/",
+  baseURL: "/api/v1/auth/",
+  // baseURL: "http://localhost:9999/api/v1/auth/",
   // baseURL: "http://13.124.111.141:8089/api/v1/auth/",
   headers: {
     "Content-Type" : "application/json",
