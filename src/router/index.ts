@@ -9,6 +9,8 @@ import ListVue from '../components/list.vue'
 import BoardViewVue from '../components/BoardView.vue'
 import ChildComponentA from '../components/ChildComponentA.vue'
 import HelloWorld from '../components/HelloWorld.vue'
+import LHeader from '../components/LHeader.vue'
+//import PizzasView from '../views/PizzasView.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -60,6 +62,16 @@ const routes: RouteRecordRaw[] = [
     path: '/test',
     name: 'test',
     component: ChildComponentA,
+  },
+  {
+    path: '/pinia',
+    name: 'pinia',
+    component: LHeader,
+  },
+  {
+    path: '/pinia2',
+    name: 'pinia2',
+    component: PizzasView,
   },
 ]
 
