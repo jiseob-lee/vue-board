@@ -1,6 +1,7 @@
 <template>
   <article class="pizza--details-wrapper">
     <img :src="pizza.image" :alt="pizza.title" height="200" width="300" />
+    <h2>{{ pizza.title }}</h2>
     <p>{{ pizza.description }}</p>
     <div class="pizza--inventory">
       <div class="pizza--inventory-price">$ {{ pizza.price }}</div>
