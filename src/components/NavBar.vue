@@ -8,7 +8,6 @@
     <router-link :to="{ name: 'board' }">Board</router-link>
     <router-link :to="{ name: 'test' }">test</router-link>
     <router-link :to="{ name: 'pinia' }">pinia</router-link>
-    <router-link :to="{ name: 'pinia2' }">pinia2</router-link>
   </nav>
 </template>
 

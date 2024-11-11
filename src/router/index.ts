@@ -7,6 +7,8 @@ import LoginView from '../views/LoginView.vue'
 import BoardView from '../views/BoardView.vue'
 import ListVue from '../components/list.vue'
 import BoardViewVue from '../components/BoardView.vue'
+import BoardEditVue from '../components/BoardEdit.vue'
+import BoardNewVue from '../components/BoardNew.vue'
 import ChildComponentA from '../components/ChildComponentA.vue'
 import HelloWorld from '../components/HelloWorld.vue'
 import LHeader from '../components/LHeader.vue'
@@ -52,6 +54,16 @@ const routes: RouteRecordRaw[] = [
         component: BoardViewVue,
       },
       {
+        path: 'edit/:articleId/:boardNo/:page',
+        name: 'boardEdit',
+        component: BoardEditVue,
+      },
+      {
+        path: 'new/:boardNo/:page',
+        name: 'boardNew',
+        component: BoardNewVue,
+      },
+      {
         path: ":boardNo/:page",
         name: "board1",
         component: ListVue,
@@ -67,11 +79,6 @@ const routes: RouteRecordRaw[] = [
     path: '/pinia',
     name: 'pinia',
     component: LHeader,
-  },
-  {
-    path: '/pinia2',
-    name: 'pinia2',
-    component: PizzasView,
   },
 ]
 

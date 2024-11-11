@@ -4,7 +4,7 @@
     <h2>{{ pizza.title }}</h2>
     <p>{{ pizza.description }}</p>
     <div class="pizza--inventory">
-      <div class="pizza--inventory-price">$ {{ pizza.price }}</div>
+      <div class="pizza--inventory-price">$ {{ Number(pizza.price).toFixed(2) }}</div>
       <span v-if="isInCart">In cart</span>
     </div>
     <button class="pizza--add" @click="addToCart">Add to cart</button>

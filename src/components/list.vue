@@ -50,6 +50,9 @@
                     </table>
                     <!-- <paging :page="page" @onPage="onPage" v-if="this.lists.length !== 0"/> -->
                     <paging :page="page" @onPage="onPage" />
+                    <div>
+                      <input type="button" value="새글 입력" @click="goNew" />
+                    </div>
                 </div>
             </section>
         </div>
@@ -217,6 +220,10 @@ export default defineComponent({
           console.log("selectBoardValue", selectBoardValue);
           this.boardNo = Number(selectBoardValue);
           this.main(1);
+        },
+        
+        goNew: function() {
+          window.location.href = "/board/new/" + this.boardNo + "/" + this.page.page;
         }
     },
 });
