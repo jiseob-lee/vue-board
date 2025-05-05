@@ -24,6 +24,7 @@ const props = defineProps({
 });
 
 const cart = useCartStore();
+
 const addToCart = () => {
   cart.add({ id: props.pizza.id, quantity: 1 });
 };

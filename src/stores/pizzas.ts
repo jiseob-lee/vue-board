@@ -21,4 +21,6 @@ export const usePizzasStore = defineStore('pizzas', () => {
         pizzas,
         fetchPizzas,
     }
-})
+},
+{ persist : true }
+)
