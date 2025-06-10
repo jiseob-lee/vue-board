@@ -30,7 +30,12 @@ const addToCart = () => {
 };
 
 const isInCart = computed(():boolean => {
-  return !!cart.items.find((item) => item.id === props.pizza.id);
+  if (!cart.items)
+  {
+    return false;
+  } else {
+	return !!cart.items.find((item) => item.id === props.pizza.id);
+  }
 });
 </script>
 <style scoped>

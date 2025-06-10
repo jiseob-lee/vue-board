@@ -137,6 +137,8 @@ export default {
     <input type="button" value="삭제" @click="goDelete" style="margin: 5px;" />
   </div>
   
+  <h2>[ <span v-if="!isFetching" v-html="boardSubject"></span> ]</h2>
+  
   <div v-if="!isFetching" v-html="boardContent">
   </div>
   

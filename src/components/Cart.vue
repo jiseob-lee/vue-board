@@ -12,8 +12,7 @@
                         <span>= ${{ item.total }}</span>
                         <button @click="cart.remove(item.id)">Remove</button>
                     </li>
-                </ul>
-                <div>Total Price : ${{ cart.totalPrice }}</div>
+                </ul>                
                 <button @click="cart.clear">Remove all</button>
             </div>
         </div>
@@ -29,9 +28,6 @@ const showCartDetails = ref(false);
 const toggleCartDetails = () => {
     showCartDetails.value = !showCartDetails.value;
 }
-
-cart.initCart();
-
 </script>
 <style scoped>
 .cart__list {
