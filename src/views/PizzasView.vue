@@ -1,7 +1,7 @@
 <template>
   <div class="pizzas-view--container">
     <h1>Pizzas</h1>
-    <!-- <input v-model="search" placeholder="Search for a pizza" /> -->
+    <input v-model="search" placeholder="Search for a pizza" />
     <ul>
       <li v-for="pizza in searchResults" :key="pizza.id">
         <PizzaCard :pizza="pizza" />
